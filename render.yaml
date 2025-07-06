@@ -1,7 +1,7 @@
 services:
   - type: web
-    name: django-app
+    name: django1
     env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn server.wsgi"
-    pythonVersion: 3.10.12
+    pythonVersion: "3.10"
+    buildCommand: "pip install --upgrade pip && pip install -r requirements.txt"
+    startCommand: "gunicorn Django1.wsgi:application --bind 0.0.0.0:$PORT"
