@@ -2,6 +2,18 @@ services:
   - type: web
     name: django1
     env: python
-    pythonVersion: "3.10"
+    pythonVersion: "3.10"  # Specifies Python 3.10
     buildCommand: "pip install --upgrade pip && pip install -r requirements.txt"
     startCommand: "gunicorn Django1.wsgi:application --bind 0.0.0.0:$PORT"
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: SECRET_KEY
+        value: "django-insecure-ia(fd#yrl396yc(rnt@3+w=_88jl&!!5tn!p96mi5q&+g!z1iny"  # Replace with a secure key
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: "https://django1-vc6q.onrender.com"  # Replace with your Render app URL
+      - key: MONGO_URI
+        value: "mongodb+srv://anyjobhub:salmankhan@cluster0.jbwhbeu.mongodb.net/worktrack',
+    username='anyjobhub"  # If using MongoDB
