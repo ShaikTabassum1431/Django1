@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Data Entry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #007bff; /* A standard blue for actions */
+            --primary-dark: #0056b3;
+            --background-light: #f8f9fa; /* Light, calming background */
+            --card-background: #ffffff; /* White for form card */
+            --text-dark: #343a40; /* Dark text for readability */
+            --text-light: #6c757d;
+            --result-color: #28a745; /* Green for success/result */
+            --border-color: #ced4da;
+            --focus-glow: rgba(0, 123, 255, 0.25); /* Light blue glow on focus */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .data-input-container { /* Specific class for this type of form */
+            background-color: var(--card-background);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 450px; /* Adjust width for better input flow */
+            box-sizing: border-box;
+            border-top: 5px solid var(--primary-color);
+            text-align: center;
+        }
+
+        h2.form-title {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px; /* Consistent spacing between fields */
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+            font-size: 0.95em;
+        }
+
+        input[type="text"] { /* Keeping type="text" as per your HTML */
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1em;
+            color: var(--text-dark);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        /* Recommendation: For numerical inputs, consider using type="number" */
+        /* input[type="number"] { ... same styling ... } */
+
+        input[type="text"]:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px var(--focus-glow);
+        }
+
+        button[type="submit"] {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 25px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-display { /* Styling for the result message */
+            color: var(--result-color);
+            font-size: 1.6em;
+            font-weight: 600;
+            margin-top: 30px;
+            padding: 15px;
+            border: 2px solid var(--result-color);
+            border-radius: 8px;
+            background-color: rgba(40, 167, 69, 0.08); /* Light background for the result box */
+            display: inline-block; /* To make padding/border apply correctly */
+            text-align: center;
+            max-width: 90%; /* To ensure it stays within container on smaller screens */
+            word-wrap: break-word; /* Prevents overflow for long results */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .data-input-container {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+
+            h2.form-title {
+                font-size: 1.8em;
+                margin-bottom: 25px;
+            }
+
+            button[type="submit"] {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+
+            .result-display {
+                font-size: 1.4em;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="data-input-container">
+        <h2 class="form-title">Enter Health Parameters</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="p">Pregnancies:</label>
+                <input type="text" name="p" id="p" required>
+            </div>
+            <div class="form-group">
+                <label for="g">Glucose:</label>
+                <input type="text" name="g" id="g" required>
+            </div>
+            <div class="form-group">
+                <label for="B">Blood Pressure:</label>
+                <input type="text" name="B" id="B" required>
+            </div>
+            <div class="form-group">
+                <label for="s">Skin Thickness:</label>
+                <input type="text" name="s" id="s" required>
+            </div>
+            <div class="form-group">
+                <label for="i">Insulin:</label>
+                <input type="text" name="i" id="i" required>
+            </div>
+            <div class="form-group">
+                <label for="b">BMI:</label>
+                <input type="text" name="b" id="b" required>
+            </div>
+            <div class="form-group">
+                <label for="d">Diabetes Pedigree Function:</label>
+                <input type="text" name="d" id="d" required>
+            </div>
+            <div class="form-group">
+                <label for="a">Age:</label>
+                <input type="text" name="a" id="a" required>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if result %}
+            <p class="result-display">Result: {{ result }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

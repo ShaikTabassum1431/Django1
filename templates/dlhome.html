@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #7b68ee; /* A soft purple for a distinct yet consistent feel */
+            --primary-dark: #6a5acd;
+            --background-light: #f8f9fa; /* Light, calming background */
+            --card-background: #ffffff; /* White for form card */
+            --text-dark: #343a40; /* Dark text for readability */
+            --text-light: #6c757d;
+            --prediction-color: #28a745; /* Green for successful prediction result */
+            --border-color: #ced4da;
+            --focus-glow: rgba(123, 104, 238, 0.25); /* Purple glow on focus */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .image-upload-container {
+            background-color: var(--card-background);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 400px; /* Max width for the container */
+            box-sizing: border-box;
+            border-top: 5px solid var(--primary-color); /* Accent border top */
+            text-align: center;
+        }
+
+        h2.form-title {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* Styling for the file input */
+        input[type="file"] {
+            display: none; /* Hide the default file input */
+        }
+
+        /* Custom file input button */
+        .custom-file-upload {
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 120px; /* Minimum height for the drop area */
+            font-size: 1em;
+            color: var(--text-light);
+            background-color: #f0f4f8; /* Light background for the upload area */
+            transition: all 0.3s ease;
+            margin-bottom: 25px;
+            overflow: hidden; /* Ensure content doesn't break out */
+            position: relative; /* For the file name display */
+        }
+
+        .custom-file-upload:hover {
+            border-color: var(--primary-color);
+            background-color: #e6eaf0;
+            color: var(--primary-color);
+        }
+
+        .custom-file-upload::before { /* Icon or text for upload area */
+            content: '📂'; /* Folder emoji, or use an SVG/Font Awesome icon */
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .file-name-display {
+            font-size: 0.9em;
+            color: var(--text-dark);
+            margin-top: 10px;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* Truncate long file names */
+            font-weight: 500;
+        }
+
+
+        button[type="submit"] {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 20px; /* Space below file input, above button */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .prediction-result { /* Styling for the prediction result */
+            color: var(--prediction-color);
+            font-size: 1.6em;
+            font-weight: 600;
+            margin-top: 30px;
+            padding: 15px;
+            border: 2px solid var(--prediction-color);
+            border-radius: 8px;
+            background-color: rgba(40, 167, 69, 0.08);
+            display: inline-block;
+            text-align: center;
+            max-width: 90%;
+            word-wrap: break-word;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .image-upload-container {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+
+            h2.form-title {
+                font-size: 1.8em;
+                margin-bottom: 25px;
+            }
+
+            .custom-file-upload {
+                min-height: 100px;
+                padding: 15px;
+            }
+
+            .custom-file-upload::before {
+                font-size: 2em;
+            }
+
+            button[type="submit"] {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+
+            .prediction-result {
+                font-size: 1.4em;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="image-upload-container">
+        <h2 class="form-title">Upload Image for Prediction</h2>
+        <form method="post" enctype="multipart/form-data" id="imageUploadForm">
+            {% csrf_token %}
+            <label for="file-upload" class="custom-file-upload">
+                Click or Drag an Image Here
+                <span class="file-name-display" id="file-name">No file chosen</span>
+            </label>
+            <input type="file" name="image" id="file-upload" accept="image/*" required>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if prediction %}
+            <p class="prediction-result">Prediction: {{ prediction }}</p>
+        {% endif %}
+    </div>
+
+    <script>
+        // JavaScript to display the chosen file name
+        document.getElementById('file-upload').addEventListener('change', function() {
+            const fileNameDisplay = document.getElementById('file-name');
+            if (this.files && this.files.length > 0) {
+                fileNameDisplay.textContent = this.files[0].name;
+            } else {
+                fileNameDisplay.textContent = 'No file chosen';
+            }
+        });
+    </script>
+</body>
+</html>

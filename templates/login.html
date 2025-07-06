@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login or Create Account</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #007bff; /* A vibrant blue for main actions */
+            --primary-dark: #0056b3;
+            --secondary-color: #6c757d; /* For subtle text or borders */
+            --background-light: #f8f9fa; /* Light background */
+            --card-background: #ffffff; /* White for form card */
+            --text-dark: #343a40; /* Dark text for readability */
+            --text-light: #6c757d;
+            --error-color: #dc3545; /* Red for error messages */
+            --border-color: #ced4da;
+            --focus-glow: rgba(0, 123, 255, 0.25); /* Light blue glow on focus */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif; /* Modern, clean font */
+            background-color: var(--background-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Ensures content takes full viewport height */
+            margin: 0;
+            color: var(--text-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased; /* Better font rendering */
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .login-container {
+            background-color: var(--card-background);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* Soft, modern shadow */
+            width: 100%;
+            max-width: 420px; /* Constrain width for better readability */
+            box-sizing: border-box; /* Include padding in width */
+            border-top: 5px solid var(--primary-color); /* Accent border top */
+            text-align: center; /* Center form title and error */
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px; /* Spacing between input groups */
+            text-align: left; /* Align labels and inputs to the left */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+            font-size: 0.95em;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px; /* Slightly rounded inputs */
+            box-sizing: border-box;
+            font-size: 1em;
+            color: var(--text-dark);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            -webkit-appearance: none; /* Remove default browser styling */
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px var(--focus-glow); /* Soft glow on focus */
+        }
+
+        button[type="submit"] {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 25px; /* Space above the button */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px); /* Slight lift effect */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .create-account-button { /* New style for the create account button */
+            display: block; /* Make it a block element to take full width */
+            background-color: var(--secondary-color); /* A different color for distinction */
+            color: white;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em; /* Slightly smaller than login button */
+            font-weight: 500;
+            width: 100%;
+            margin-top: 20px; /* Space above this button */
+            text-decoration: none; /* Remove underline for link-as-button */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-sizing: border-box; /* Ensures padding is included in width */
+        }
+
+        .create-account-button:hover {
+            background-color: #5a6268; /* Darker secondary color on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.95em;
+            margin-top: 25px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .login-container {
+                padding: 30px 20px; /* Reduce padding on smaller screens */
+                margin: 20px; /* Add some margin to prevent sticking to edges */
+            }
+
+            h2 {
+                font-size: 1.8em;
+                margin-bottom: 25px;
+            }
+
+            button[type="submit"],
+            .create-account-button {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Welcome Back!</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="un">Username</label>
+                <input type="text" name="un" id="un" required>
+            </div>
+            <div class="form-group">
+                <label for="ps">Password</label>
+                <input type="password" name="ps" id="ps" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <a href="{% url 'r' %}" class="create-account-button">Create Account</a>
+        {% if error %} 
+            <p class="error-message">{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

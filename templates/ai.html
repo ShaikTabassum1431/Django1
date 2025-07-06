@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>AI Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6200EE; /* A deep, rich purple for AI services */
+            --primary-dark: #3700B3;
+            --background-light: #f8f9fa; /* Light, calming background */
+            --card-background: #ffffff; /* White for content card */
+            --text-dark: #343a40; /* Dark text for readability */
+            --text-light: #6c757d;
+            --border-color: #e0e0e0;
+            --focus-glow: rgba(98, 0, 238, 0.2); /* Purple glow on focus */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .ai-welcome-container {
+            background-color: var(--card-background);
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 480px; /* Wider container for buttons */
+            box-sizing: border-box;
+            border-top: 6px solid var(--primary-color); /* Stronger accent top */
+            text-align: center;
+        }
+        
+        /* Heading style for a title within the container, if you add one */
+        h2.container-title {
+            font-size: 2.2em;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .nav-button {
+            display: block; /* Make links behave like block buttons */
+            background-color: var(--primary-color);
+            color: white;
+            /* Reduced padding for more compact buttons */
+            padding: 10px 18px; 
+            /* Slightly smaller font size for a more subtle look */
+            font-size: 0.95em;    
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%; /* Take full available width */
+            text-decoration: none; /* Remove underline */
+            margin-bottom: 15px; /* Spacing between buttons (will combine with <br><br>) */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        /* Responsive adjustments for button size */
+        @media (max-width: 600px) {
+            .ai-welcome-container {
+                padding: 40px 25px;
+                margin: 20px;
+            }
+
+            h2.container-title {
+                font-size: 1.8em;
+                margin-bottom: 25px;
+            }
+
+            .nav-button {
+                /* Even smaller padding on mobile to ensure they look good */
+                padding: 8px 15px; 
+                font-size: 0.9em; 
+            }
+        }
+
+        @media (max-width: 400px) {
+            .ai-welcome-container {
+                padding: 30px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ai-welcome-container">
+        <form method="post">
+            {% csrf_token %} 
+            <a href="{% url 'summarize' %}" class="nav-button">Click here to summarize text</a><br><br>
+            <a href="{% url 'question_answering' %}" class="nav-button">Click here to question-answering</a>
+        </form>
+        </div>
+</body>
+</html>

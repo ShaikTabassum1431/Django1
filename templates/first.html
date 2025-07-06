@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Our Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a73e8; /* Google's blue, strong and welcoming */
+            --primary-dark: #155bb5;
+            --background-light: #f3f6f9; /* Light, calming background */
+            --card-background: #ffffff; /* White for content card */
+            --text-dark: #3c4043; /* Dark text for readability */
+            --text-light: #70757a;
+            --border-color: #e0e0e0;
+            --focus-glow: rgba(26, 115, 232, 0.2); /* Soft blue glow on focus */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text-dark);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .welcome-container {
+            background-color: var(--card-background);
+            padding: 50px; /* Generous padding */
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* More pronounced shadow */
+            width: 100%;
+            max-width: 480px; /* Wider container for buttons */
+            box-sizing: border-box;
+            border-top: 6px solid var(--primary-color); /* Stronger accent top */
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.8em; /* Larger welcome text */
+            color: var(--primary-color); /* Welcome text in primary color */
+            margin-bottom: 40px;
+            font-weight: 700; /* Bolder */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05); /* Subtle text shadow */
+        }
+
+        .nav-button {
+            display: block; /* Make links behave like block buttons */
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            width: 100%; /* Take full available width */
+            text-decoration: none; /* Remove underline */
+            margin-bottom: 15px; /* Spacing between buttons */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-sizing: border-box; /* Include padding in width */
+        }
+
+        .nav-button:last-child {
+            margin-bottom: 0; /* No margin below the last button */
+        }
+
+        .nav-button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px); /* More pronounced lift effect */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .welcome-container {
+                padding: 40px 25px;
+                margin: 20px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+                margin-bottom: 30px;
+            }
+
+            .nav-button {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .welcome-container {
+                padding: 30px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-container">
+        <h1>Welcome!</h1>
+        <a href="{% url 'ch' %}" class="nav-button">Machine Learning</a>
+        <a href="{% url 'dl' %}" class="nav-button">Deep Learning</a>
+        <a href="{% url 'ai' %}" class="nav-button">Artificial Intelligence</a>
+    </div>
+</body>
+</html>
