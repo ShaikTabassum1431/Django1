@@ -74,20 +74,21 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-connect(
-    db='worktrack',
-    host='mongodb+srv://anyjobhub:salmankhan@cluster0.jbwhbeu.mongodb.net/worktrack',
-    username='anyjobhub',
-    password='salmankhan',
-    authentication_source='admin',
-    authentication_mechanism='SCRAM-SHA-1'
-)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+def mongo_connect():
+    connect(
+        db='worktrack',
+        host='mongodb+srv://anyjobhub:salmankhan@cluster0.jbwhbeu.mongodb.net/',
+        username='anyjobhub',
+        password='salmankhan',
+        authentication_source='admin',
+        authentication_mechanism='SCRAM-SHA-1'
+    )
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
